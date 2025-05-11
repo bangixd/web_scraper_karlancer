@@ -1,13 +1,19 @@
+import configparser
 import requests
 from telebot import TeleBot, types, apihelper
 
-proxy = {
-    'https': 'https://free.shecan.ir/dns-query'  # For HTTPS
-}
 
-apihelper.proxy = proxy
+config = configparser.ConfigParser()
+config.read('config.ini')
 
-bot = TeleBot('8155387502:AAG_4AyeKJvKEC-GQNahNFbaImP4XEr5Itk')
+
+# proxy = {
+#     'https': 'https://free.shecan.ir/dns-query'  # For HTTPS
+# }
+#
+# apihelper.proxy = proxy
+
+bot = TeleBot(config['TELEGRAM_API']['api_key'])
 response = requests.get('https://www.karlancer.com/api/publics/category-page?q=python&order=newest')
 
 projects = response.json()['data']['projects']['data']
